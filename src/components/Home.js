@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Data from "./Data";
+import { Redirect } from "react-router-dom";
 
 export default class Home extends Component {
   constructor() {
@@ -17,6 +18,10 @@ export default class Home extends Component {
 
   render() {
     const { value } = this.state;
+    const { isLoggedIn } = this.props;
+    if (!isLoggedIn) {
+      return <Redirect to="/login" />;
+    }
     return (
       <React.Fragment>
         <div style={styles.container}>

@@ -2,7 +2,7 @@ import React from "react";
 // import { AppBar, Tabs, Tab } from "material-ui";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Link from "@material-ui/core/Link";
+import { Link } from "react-router-dom";
 
 export default function () {
   return (
@@ -12,13 +12,19 @@ export default function () {
           <h1>Task Manager</h1>
           <ul style={styles.listContainer}>
             <li style={styles.listItem}>
-              <Link style={styles.link}>Home</Link>
+              <Link to="/home" style={styles.link}>
+                Home
+              </Link>
             </li>
             <li style={styles.listItem}>
-              <Link style={styles.link}>Task</Link>
+              <Link to="/task" style={styles.link}>
+                Task
+              </Link>
             </li>
             <li style={styles.listItem}>
-              <Link style={styles.link}>User</Link>
+              <Link to="/user" style={styles.link}>
+                User
+              </Link>
             </li>
           </ul>
         </Toolbar>
