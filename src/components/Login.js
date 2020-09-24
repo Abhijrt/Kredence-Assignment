@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
+import { Redirect } from "react-router-dom";
 
 export default class Login extends Component {
   constructor() {
@@ -27,7 +28,7 @@ export default class Login extends Component {
   render() {
     const { isLoggedIn } = this.props;
     if (isLoggedIn) {
-      return null;
+      return <Redirect to="/home" />;
     }
     return (
       <div style={styles.container}>
@@ -49,6 +50,7 @@ export default class Login extends Component {
             style={styles.buttonContainer}
             variant="contained"
             color="primary"
+            // type="submit"
             onClick={this.handleLoginButtonClick}
           >
             Login

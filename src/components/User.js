@@ -7,13 +7,10 @@ export default class User extends Component {
   render() {
     const { isEditable, isLoggedIn, isLoggedInId, users } = this.props.element;
     const { onButtonClick, onLogOutClick } = this.props;
-
     if (!isLoggedIn) {
       return <Redirect to="/login" />;
     }
-
     var user = users[isLoggedInId];
-    // console.log(user);
     return (
       <div style={styles.container}>
         <p style={styles.userName}>User Name : {user.userName} </p>
@@ -21,7 +18,7 @@ export default class User extends Component {
         <p style={styles.passwordContainer}>
           Password :
           {isEditable ? (
-            <Input style={styles.input} value={user.password} />
+            <input style={styles.input} value={user.password} />
           ) : (
             <span style={styles.password}>{user.password}</span>
           )}

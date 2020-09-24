@@ -1,12 +1,11 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "../App.css";
 import NavBar from "./NavBar";
 import Home from "./Home";
 import User from "./User";
 import Task from "./Task";
 import Login from "./Login";
-
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
   constructor() {
@@ -15,6 +14,7 @@ class App extends React.Component {
       isEditable: false,
       isLoggedIn: false,
       isLoggedInId: "",
+      tasks: [],
       users: [
         {
           id: 0,
@@ -29,6 +29,22 @@ class App extends React.Component {
       ],
     };
   }
+
+  componentDidMount() {
+    const url = "http://jsonplaceholder.typicode.com/todos";
+    fetch(url, {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          tasks: data,
+        });
+      });
+  }
+
   handleButton = () => {
     this.setState({
       isEditable: !this.state.isEditable,
@@ -54,13 +70,48 @@ class App extends React.Component {
     });
   };
 
+  handleTaskDelete = (id) => {
+    const { tasks } = this.state;
+    var task = tasks.filter((task) => task.id !== id);
+    this.setState({
+      tasks: task,
+    });
+  };
+
+  onAuthRequired = ({ history }) => {
+    history.push("/login");
+  };
+
+  handleAddTask = (title, completed) => {
+    const length = this.state.tasks.length;
+    const obj = {
+      id: length + 1,
+      title: title,
+      completed: completed,
+    };
+    this.setState({
+      tasks: [...this.state.tasks, obj],
+    });
+  };
+
   render() {
-    console.log(this.state);
     return (
       <Router>
         <div className="App">
           <NavBar />
           <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => {
+                return (
+                  <Login
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLoginButtonClick={this.onLoginButtonClick}
+                  />
+                );
+              }}
+            />
             <Route
               path="/login"
               render={() => {
@@ -76,6 +127,7 @@ class App extends React.Component {
               exact
               path="/home"
               render={() => {
+                console.log("Home");
                 return (
                   <Home
                     onButtonClick={this.handleButton}
@@ -101,7 +153,15 @@ class App extends React.Component {
               exact
               path="/task"
               render={() => {
-                return <Task isLoggedIn={this.state.isLoggedIn} />;
+                return (
+                  <Task
+                    isLoggedIn={this.state.isLoggedIn}
+                    tasks={this.state.tasks}
+                    onTaskAdd={this.handleTaskAdd}
+                    onTaskDelete={this.handleTaskDelete}
+                    onAddTask={this.handleAddTask}
+                  />
+                );
               }}
             />
           </Switch>
