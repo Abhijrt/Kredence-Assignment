@@ -90,7 +90,7 @@ class App extends React.Component {
       completed: completed,
     };
     this.setState({
-      tasks: [...this.state.tasks, obj],
+      tasks: [obj, ...this.state.tasks],
     });
   };
 

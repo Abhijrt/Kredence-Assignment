@@ -44,6 +44,7 @@ export default class Task extends Component {
     if (!isLoggedIn) {
       return <Redirect to="/login" />;
     }
+    console.log(tasks);
     return (
       <div style={styles.mainContainer}>
         <Accordion>
@@ -73,14 +74,6 @@ export default class Task extends Component {
                 onChange={(e) => this.handleChange("completed", e.target.value)}
               />
               <br />
-              {/* <Button
-                style={styles.buttonContainer}
-                variant="contained"
-                color="primary"
-                onClick={this.handleLoginButtonClick}
-              >
-                Add Task
-              </Button> */}
             </form>
           </AccordionDetails>
         </Accordion>
