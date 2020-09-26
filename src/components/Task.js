@@ -86,7 +86,9 @@ export default class Task extends Component {
                     {task.id}
                   </TableCell>
                   <TableCell align="center">{task.title}</TableCell>
-                  <TableCell align="left">{task.completed}</TableCell>
+                  <TableCell align="left" style={{ color: "red" }}>
+                    {task.completed === false ? "false" : "true"}
+                  </TableCell>
                   <TableCell align="left">
                     <Button
                       onClick={() => onTaskDelete(task.id)}
